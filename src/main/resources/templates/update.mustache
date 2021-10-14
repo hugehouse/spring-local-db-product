@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="/css/main.css">
+        <link rel="stylesheet" href="/css/form-buttons.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <title>whatap test site</title>
+    </head>
+    <body>
+        <div id="mall-skin">
+            <div id="mall-body">
+                <div>
+                    <h1><a href="http://localhost:8080/products">Product</a></h1>
+                </div>
+                <div>
+                    <form>
+                        <table class="table table-horizontal table-bordered" data-id="{{id}}">
+                            <thead class="thead-strong">
+                                {{#product}}
+                                    <tr class="content-title">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="title" value="{{title}}">
+                                        </div>
+                                    </tr>
+                                    <tr class="content-read">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="price" value="{{price}}">
+                                        </div>
+                                    </tr>
+                                {{/product}}
+                            </thead>
+                        </table>
+                    </form>
+                    <div>
+                        <a href="/products" role="button" class="btn btn-secondary bottom-buttons">Back</a>
+                        <button type="button" id="btn-update" class="btn btn-info bottom-buttons fc-buttons">Update</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <script src="/js/update-button.js"></script>
+    </body>
+</html>
+        
+    

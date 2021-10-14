@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/css/main.css">
+        <link rel="stylesheet" href="/css/home.css">
+        <title>whatap test site</title>
+    </head>
+    <body>
+        <div id="mall-skin">
+            <div id="mall-body">
+                <div>
+                    <h1><a href="http://localhost:8080/products">Product</a></h1>
+                </div>
+                <div id="mall-table">
+                    <table>
+                        <colgroup>
+                            <col>
+                            <col style="width:250px">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#products}}
+                                <tr>
+                                    <td class="td-title"><a href="/products/{{id}}" class="item-link">{{title}}</a></td>
+                                    <td class="td-price">{{price}}</td>
+                                </tr>
+                            {{/products}}
+                        </tbody>
+                    </table>
+                </div>
+                <div>
+                    <a href="/products/new-item" role="button" class="btn btn-primary bottom-buttons">Add</a>
+                </div>
+                {{#page}}
+                    <ul class="pagination" id="page-button">
+                        <li class="page-item"><a id="prev" class="page-link" href="#">
+                            <span><</span>
+                        </a>
+                        </li>
+                    </ul>
+                    <div id="page-info" data-total-pages="{{totalPages}}" data-offset="{{offset}}" data-limit="{{limit}}"></div>
+                {{/page}}
+            </div>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <script src="/js/paging.js"></script>
+    </body>
+</html>
+        
+    
