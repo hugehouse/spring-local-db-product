@@ -7,7 +7,7 @@ var main = {
     },
 
     delete : function () {
-        var id = $("table").data("id")
+        var id = $("#upper-content").data("id")
 
         $.ajax({
             type: 'DELETE',

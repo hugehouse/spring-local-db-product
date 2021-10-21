@@ -54,6 +54,10 @@
     margin-bottom: 100px;
 }
 
+.thumbnail-image {
+    width: 255px;
+}
+
 .products-content {
     text-align: center;
 }
