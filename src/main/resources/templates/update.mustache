@@ -4,38 +4,62 @@
         <meta charset="UTF-8">
         <link rel="stylesheet" href="/css/main.css">
         <link rel="stylesheet" href="/css/form-buttons.css">
+        <link rel="stylesheet" href="/css/update.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <title>whatap test site</title>
     </head>
     <body>
         <div id="mall-skin">
+            <div>
+                <h1 id="header-title"><a href="/products">Product</a></h1>
+            </div>
             <div id="mall-body">
-                <div>
-                    <h1><a href="http://localhost:8080/products">Product</a></h1>
-                </div>
                 <div>
                     <form>
                         <table class="table table-horizontal table-bordered" data-id="{{id}}">
                             <thead class="thead-strong">
                                 {{#product}}
-                                    <tr class="content-title">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" id="title" value="{{title}}">
-                                        </div>
-                                    </tr>
-                                    <tr class="content-read">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" id="price" value="{{price}}">
-                                        </div>
-                                    </tr>
+                                <tr class="content-title">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control input-base" id="title-value" value="{{title}}">
+                                    </div>
+                                </tr>
+                                <tr class="content-read">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control input-base" id="price-value" value="{{price}}">
+                                    </div>
+                                </tr>
+                                <tr class="content-read">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control input-base" id="category-value" value="{{category}}">
+                                    </div>
+                                </tr>
+                                <tr class="content-read">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control input-base" id="stock-value" value="{{stock}}">
+                                    </div>
+                                </tr>
                                 {{/product}}
                             </thead>
                         </table>
                     </form>
                     <div>
+                        <img id="thumbnail-image" src="../../images/thumbnail_image/default.PNG">
+                        <input type="file" id="thubnail-input" accept="image/*" onchange="preview('#thubnail-input', '#thumbnail-image')">
+                        <p>썸네일 사진 업로드</p>
+                        {{! <button type="button" id="thumbnail-upload" class="btn btn-dark">Upload</button> }}
+                    </div>
+                    <div id="body-input-div">
+                        <input type="file" id="body-image-input" accept="image/*" onchange="preview('#body-image-input', '#body-image')">
+                        <p>내용 사진 업로드</p>
+                    </div>
+                    <div id="update-buttons">
                         <a href="/products" role="button" class="btn btn-secondary bottom-buttons">Back</a>
                         <button type="button" id="btn-update" class="btn btn-info bottom-buttons fc-buttons">Update</button>
+                    </div>
+                    <div id="body-image-div">
+                        <img id="body-image">
                     </div>
                 </div>
             </div>

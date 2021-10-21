@@ -18,7 +18,7 @@ var main = {
             alert('product deleted successfully');
             window.location.href = '/products';
         }).fail(function (error) {
-            alert(JSON.stringify(error));
+            alert('product delete failed');
         });
     }
 };

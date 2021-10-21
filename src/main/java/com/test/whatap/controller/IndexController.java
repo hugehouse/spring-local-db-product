@@ -1,23 +1,26 @@
 package com.test.whatap.controller;
 
-import com.test.whatap.dto.ProductUpdateResponseDto;
-import com.test.whatap.dto.ProductsListResponseDto;
+import com.test.whatap.dto.product.ProductUpdateResponseDto;
+import com.test.whatap.dto.product.ProductsListResponseDto;
+import com.test.whatap.paging.PageImpl;
 import com.test.whatap.paging.PageInfo;
 import com.test.whatap.paging.PagingExceptionHandler;
+import com.test.whatap.service.CategoryService;
 import com.test.whatap.service.ProductService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Controller
 public class IndexController {
 
     private final ProductService productService;
+    private final CategoryService categoryService;
 
     @GetMapping("/products/{id}")
     public String getProduct(@PathVariable Long id, Model model) {
@@ -30,12 +33,20 @@ public class IndexController {
             @RequestParam(value = "offset", required = true, defaultValue = "0") int offset,
             @RequestParam(value = "limit", required = true, defaultValue = "10") int limit, Model model) {
         int transLimit = PagingExceptionHandler.normalizationLimit(limit);
-        PageRequest request = PageRequest.of(offset, transLimit, Sort.Direction.DESC, "id");
 
-        Page<ProductsListResponseDto> products = productService.findAllDescByPagination(request);
+        PageImpl page = (PageImpl)productService.findAllDescByPagination(offset, transLimit);
 
-        model.addAttribute("products", products.getContent());
-        model.addAttribute("page", new PageInfo(offset, products.getTotalPages(), transLimit));
+        if(page != null) {
+            List<ProductsListResponseDto> products = page
+                    .getEntityList()
+                    .stream()
+                    .map(ProductsListResponseDto::new)
+                    .collect(Collectors.toList());
+
+            model.addAttribute("products", products);
+            model.addAttribute("page", new PageInfo(offset, page.getTotalPages(), transLimit));
+        }
+        model.addAttribute("categories", categoryService.findAllCategory());
         return "products";
     }
 

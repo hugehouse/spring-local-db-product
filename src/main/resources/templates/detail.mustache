@@ -11,30 +11,34 @@
     </head>
     <body>
         <div id="mall-skin">
+            <div>
+                <h1 id="header-title"><a href="/products">Product</a></h1>
+            </div>
             <div id="mall-body">
                 <div>
-                    <h1><a href="http://localhost:8080/products">Product</a></h1>
-                </div>
-                <div>
-                    <form>
-                        <table class="table table-horizontal table-bordered" data-id="{{id}}">
-                            <thead class="thead-strong">
-                                {{#product}}
-                                    <tr>
-                                        <div id="detatil-title" class="form-control">{{title}}</div>
-                                    </tr>
-                                    <tr>
-                                        <div class="form-control">{{price}}</div>
-                                    </tr>
-                                {{/product}}
-                            </thead>
-                        </table>
-                    </form>
-                    <div>
-                        <a href="/products" role="button" class="btn btn-secondary bottom-buttons">Back</a>
-                        <a href="/products/update/{{id}}" role="button" class="btn btn-info bottom-buttons fc-buttons">Update</a>
-                        <button type="button" id="btn-delete" class="btn btn-primary bottom-buttons fc-buttons">Delete</button>
+                    {{#product}}
+                    <div id="upper-content">
+                        <div id="thumbnail-div">
+                            <img id="thumbnail-image" src='{{thumbnailImage}}'>
+                        </div>
+                        <div id="content-info">
+                            <h2 class="content title">상품 : {{title}}</h2>
+                            <div class="content">가격 : {{price}}원</div>
+                            <div class="content">재고 : {{stock}}개</div>    
+                        </div>
                     </div>
+                    <div id="detail-line">
+                        <h3 id="detail-info-tag">상세정보</h3>
+                    </div>                        
+                    <div id="body-image-div">
+                        <img id="body-image" src="{{bodyImage}}">
+                    </div>
+                    {{/product}}
+                </div>
+                <div id="bottom-button-div">
+                    <a href="/products" role="button" class="btn btn-secondary bottom-buttons">Back</a>
+                    <a href="/products/update/{{id}}" role="button" class="btn btn-info bottom-buttons fc-buttons">Update</a>
+                    <button type="button" id="btn-delete" class="btn btn-primary bottom-buttons fc-buttons">Delete</button>
                 </div>
             </div>
         </div>

@@ -10,49 +10,57 @@
     </head>
     <body>
         <div id="mall-skin">
+            <div>
+                <h1 id="header-title"><a href="/products">Product</a></h1>
+            </div>
+            <div id="middle-line">
+            </div>
             <div id="mall-body">
-                <div>
-                    <h1><a href="http://localhost:8080/products">Product</a></h1>
+                <div id="mall-category">
+                    <div id="categories">
+                        <h2 id="title-category">카테고리</h2>
+                        {{#categories}}
+                        <div class="category-list" name="{{parent}}" data-id="{{id}}" data-parent="{{parent}}" data-tier="{{tier}}" data-child="f">
+                            <a href="/products/categories?{{id}}">{{name}}</a>
+                        </div>
+                        {{/categories}}
+                    </div>
                 </div>
                 <div id="mall-table">
-                    <table>
-                        <colgroup>
-                            <col>
-                            <col style="width:250px">
-                        </colgroup>
-                        <thead>
-                            <tr>
-                                <th>Title</th>
-                                <th>Price</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                    <div>
+                        <ul class="products-ul">
                             {{#products}}
-                                <tr>
-                                    <td class="td-title"><a href="/products/{{id}}" class="item-link">{{title}}</a></td>
-                                    <td class="td-price">{{price}}</td>
-                                </tr>
+                            <li class="products-li">
+                                <div>
+                                    <img id="thumbnail-image" src="{{thumbnailImage}}">
+                                </div>
+                                <div class="products-content"><a href="/products/{{id}}" class="item-link">{{title}}</a></div>
+                                <div class="products-content">{{price}}원</div>
+                                <div class="products-content">재고 : {{stock}}개</div>
+                            </li>
                             {{/products}}
-                        </tbody>
-                    </table>
+                        </ul>
+                    </div>
+                    <div>
+                        <a href="/products/new-item" role="button" class="btn btn-primary bottom-buttons">Add</a>
+                    </div>
+                    {{#page}}
+                        <ul class="pagination" id="page-button">
+                            <li class="page-item"><a id="prev" class="page-link" href="#">
+                                <span><</span>
+                            </a>
+                            </li>
+                        </ul>
+                        <div id="page-info" data-total-pages="{{totalPages}}" data-offset="{{offset}}" data-limit="{{limit}}"></div>
+                    {{/page}}
+                    
                 </div>
-                <div>
-                    <a href="/products/new-item" role="button" class="btn btn-primary bottom-buttons">Add</a>
-                </div>
-                {{#page}}
-                    <ul class="pagination" id="page-button">
-                        <li class="page-item"><a id="prev" class="page-link" href="#">
-                            <span><</span>
-                        </a>
-                        </li>
-                    </ul>
-                    <div id="page-info" data-total-pages="{{totalPages}}" data-offset="{{offset}}" data-limit="{{limit}}"></div>
-                {{/page}}
             </div>
         </div>
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
         <script src="/js/paging.js"></script>
+        <script src="/js/home-category.js"></script>
     </body>
 </html>
         

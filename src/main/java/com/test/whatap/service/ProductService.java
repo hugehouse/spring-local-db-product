@@ -1,60 +1,60 @@
 package com.test.whatap.service;
 
+import com.test.whatap.database.product.ProductRepository;
 import com.test.whatap.domain.Product;
-import com.test.whatap.domain.ProductRepository;
-import com.test.whatap.dto.ProductAddRequestDto;
-import com.test.whatap.dto.ProductUpdateResponseDto;
-import com.test.whatap.dto.ProductResponseDto;
-import com.test.whatap.dto.ProductsListResponseDto;
+import com.test.whatap.dto.product.ProductAddRequestDto;
+import com.test.whatap.dto.product.ProductUpdateResponseDto;
+import com.test.whatap.dto.product.ProductResponseDto;
+import com.test.whatap.paging.Page;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
+
+import javax.validation.Valid;
 
 @RequiredArgsConstructor
+@Validated
 @Service
 public class ProductService {
 
     private final ProductRepository productRepository;
 
-    @Transactional(readOnly = true)
     public ProductResponseDto findById(Long id) {
-        Product product = productRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException());
-        return new ProductResponseDto(product);
+        return new ProductResponseDto(productRepository.findById(id));
     }
 
-    @Transactional(readOnly = true)
     public ProductUpdateResponseDto findByIdForUpdate(Long id) {
-        Product product = productRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException());
-        return new ProductUpdateResponseDto(product.getTitle(), product.getPrice());
+        Product product = productRepository.findById(id);
+        return new ProductUpdateResponseDto()
+                .builder()
+                .title(product.getTitle())
+                .price(product.getPrice())
+                .category(product.getCategory())
+                .stock(product.getStock())
+                .thumbnailImage(product.getThumbnailImage())
+                .bodyImage(product.getBodyImage())
+                .build();
     }
 
-    @Transactional(readOnly = true)
-    public Page<ProductsListResponseDto> findAllDescByPagination(Pageable page) {
-        return productRepository.findAll(page).map(ProductsListResponseDto::new);
+
+    public Page findAllDescByPagination(int offset, int limit) {
+        return productRepository.findAll(offset, limit);
+}
+
+
+    public Product add(@Valid Product receiveProduct) {
+        Product product = productRepository.save(receiveProduct);
+        product.setLocalDateTime();
+        return product;
     }
 
-    @Transactional
-    public Long add(ProductAddRequestDto product) {
-        return productRepository.save(product.toEntity()).getId();
+    public Product update(Long id, @Valid Product receiveProduct) {
+        return productRepository.update(receiveProduct);
     }
 
-    @Transactional
-    public Long update(Long id, ProductUpdateResponseDto requestDto) {
-        Product product = productRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException());
-        product.update(requestDto.getTitle(), requestDto.getPrice());
-        return id;
-    }
-
-    @Transactional
     public Long delete(Long id) {
-        Product product = productRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException());
+        Product product = productRepository.findById(id);
         productRepository.delete(product);
-        return id;
+        return product.getId();
     }
 }
