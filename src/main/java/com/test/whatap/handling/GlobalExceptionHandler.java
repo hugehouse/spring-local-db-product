@@ -10,7 +10,7 @@ import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import java.util.Iterator;
 
-@ControllerAdvice
+@ControllerAdvice // 기본적으로 @Controller의 속성을 가짐. 아래 메소드에 @ResponseBody를 추가한다면 JSON으로 리턴 가능
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     // 존재하지 않는 페이지 접근
@@ -34,7 +34,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(ConstraintViolationException.class)
 //    @ResponseBody
     public ResponseEntity<ErrorResponse> handleUnexpectedTypeException(ConstraintViolationException e) {
-        return new ResponseEntity<>(
+        return new ResponseEntity<>( // ResponseEntity 생성자의 MultiValueMap 부분을 null로 넘기는 생성 방법(entity, null, status)
                 new ErrorResponse()
                 .builder()
                 .code(-400)
